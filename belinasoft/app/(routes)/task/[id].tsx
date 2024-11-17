@@ -1,53 +1,18 @@
-import { memo, useRef, useState } from 'react';
+import React, { memo, useState } from 'react';
 
-import { router, useLocalSearchParams } from 'expo-router';
-import React from 'react';
-
-import { Button, Flex, Gap, Text } from '@/components';
+import { useLocalSearchParams } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
-import { ITask, useTasks } from '@/widgets';
-import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+
+import { Button, Gap, Text } from '@/components';
+import { ActionTaskBtns, ITask } from '@/widgets';
 import { Colors, staticColors } from '@/global';
 
 const TaskAction = () => {
   const item = useLocalSearchParams();
-  const bottomSheetRef = useRef<BottomSheet>(null);
-
-  const { onUpdateTask, onDeleteTask, isTaskLoading } = useTasks();
 
   const [task, setTask] = useState<ITask | null>(
     JSON.parse((item?.task ?? '') as string) ?? null
   );
-
-  const onPressPinTask = async () => {
-    if (task) {
-      await onUpdateTask({ is_pinned: !task?.is_pinned } as ITask, task?.id);
-      setTask((prev) =>
-        prev ? { ...prev, is_pinned: !prev.is_pinned } : null
-      );
-    }
-  };
-  const onPressDoneTask = async () => {
-    if (task) {
-      await onUpdateTask({ is_done: !task?.is_done } as ITask, task?.id);
-      setTask((prev) => (prev ? { ...prev, is_done: !prev.is_done } : null));
-    }
-  };
-
-  const onPressEditTask = async () => {
-    router.push({
-      pathname: '/(routes)/task-action',
-      params: { task: JSON.stringify(task) },
-    });
-  };
-
-  const onConfirmDeleteTask = async () => {
-    if (!task?.id) return;
-
-    await onDeleteTask(task?.id);
-    bottomSheetRef.current?.snapToIndex(0);
-    router.push('/(tabs)');
-  };
 
   return task ? (
     <>
@@ -67,49 +32,7 @@ const TaskAction = () => {
         {new Date(task?.created_at).toLocaleDateString('ru')}
       </Text>
       <Gap />
-      <Flex toDown>
-        <Button
-          btnProps={{ onPress: onPressPinTask }}
-          full
-          type={task.is_pinned ? 'primary' : 'common'}
-        >
-          📌
-        </Button>
-        <Button
-          btnProps={{ onPress: onPressDoneTask }}
-          full
-          type={task.is_done ? 'primary' : 'common'}
-        >
-          ✔️
-        </Button>
-        <Button
-          full
-          btnProps={{ onPress: onPressEditTask, disabled: task.is_done }}
-        >
-          ✏️
-        </Button>
-        <Button
-          full
-          btnProps={{ onPress: () => bottomSheetRef.current?.snapToIndex(0) }}
-        >
-          🗑️
-        </Button>
-      </Flex>
-      <BottomSheet
-        enablePanDownToClose
-        enableDynamicSizing
-        ref={bottomSheetRef}
-        index={-1}
-        backgroundStyle={{ backgroundColor: staticColors.common.bg }}
-      >
-        <BottomSheetView style={styles.contentContainer}>
-          <Text center>Вы уверены?</Text>
-          <Gap />
-          <Button type='secondary' btnProps={{ onPress: onConfirmDeleteTask }}>
-            Подтвердить
-          </Button>
-        </BottomSheetView>
-      </BottomSheet>
+      <ActionTaskBtns task={task} setTask={setTask} />
     </>
   ) : (
     <View>

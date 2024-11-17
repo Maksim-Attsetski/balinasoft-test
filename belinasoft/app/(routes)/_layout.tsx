@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Stack } from 'expo-router';
-import { memo } from 'react';
 import { Layout } from '@/components';
 
 const RoutesLayout = () => {
