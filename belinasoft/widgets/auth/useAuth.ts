@@ -1,3 +1,4 @@
+import { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import { supabase } from '@/global';
 import { useAuthStore } from './store';
 import {
@@ -17,6 +18,15 @@ export const useAuth = () => {
       );
 
       if (error) throw new Error(error?.message);
+
+      if (data.session) {
+        await useAsyncStorage('access_token').setItem(
+          data?.session?.access_token
+        );
+        await useAsyncStorage('refresh_token').setItem(
+          data?.session?.refresh_token
+        );
+      }
       setUser(data.user);
     } catch (error: any) {
       Alert.alert(error ?? 'Ошибка' + JSON.stringify(error));
@@ -26,8 +36,17 @@ export const useAuth = () => {
 
   const onSignup = async (credentials: SignUpWithPasswordCredentials) => {
     try {
-      const user = await supabase.auth.signUp(credentials);
-      setUser(user.data.user);
+      const { data, error } = await supabase.auth.signUp(credentials);
+
+      if (error) throw new Error(error?.message);
+
+      if (data.session) {
+        await useAsyncStorage('access_token').setItem(
+          data?.session?.access_token
+        );
+      }
+
+      setUser(data.user);
     } catch (error: any) {
       Alert.alert(error?.message ?? 'Ошибка' + JSON.stringify(error));
       console.error(error);
