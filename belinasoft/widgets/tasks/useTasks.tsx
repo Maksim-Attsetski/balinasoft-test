@@ -26,7 +26,7 @@ export const useTasks = () => {
         store.setTasks(data);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsTaskLoading(false);
     }
@@ -49,7 +49,7 @@ export const useTasks = () => {
         store.createTask(data[0]);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsTaskLoading(false);
     }
@@ -64,7 +64,7 @@ export const useTasks = () => {
 
       store.updateTask({ ...task, id });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsTaskLoading(false);
     }
@@ -79,7 +79,7 @@ export const useTasks = () => {
 
       store.deleteTask(id);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setIsTaskLoading(false);
     }

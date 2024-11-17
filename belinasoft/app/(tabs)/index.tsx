@@ -1,7 +1,7 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { FlatList, View } from 'react-native';
-import { Button, Flex, Gap, Layout, Text } from '@/components';
+import { Gap, Layout, Text } from '@/components';
 import { ITask, Task, TaskFilterModal, useTasks } from '@/widgets';
 import BottomSheet from '@gorhom/bottom-sheet';
 
@@ -31,31 +31,17 @@ export default function HomeScreen() {
     );
   }, [tasks, sortBy]);
 
+  useEffect(() => {
+    onGetMyTasks();
+  }, []);
+
   return (
     <Layout>
-      <Flex>
-        <Button
-          to={{
-            pathname: '/(routes)/task-action',
-          }}
-          full
-          size='small'
-          type='primary'
-        >
-          Добавить задачу
-        </Button>
-        <Gap />
-        <Button
-          full
-          size='small'
-          type='secondary'
-          btnProps={{
-            onPress: () => bottomSheetRef?.current?.snapToIndex?.(0),
-          }}
-        >
-          Показать фильтры
-        </Button>
-      </Flex>
+      <TaskFilterModal
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+        bottomSheetRef={bottomSheetRef}
+      />
       <Gap />
       <FlatList
         refreshing={isTaskLoading}
@@ -70,11 +56,6 @@ export default function HomeScreen() {
         ItemSeparatorComponent={Gap}
       />
       <Gap />
-      <TaskFilterModal
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-        bottomSheetRef={bottomSheetRef}
-      />
     </Layout>
   );
 }

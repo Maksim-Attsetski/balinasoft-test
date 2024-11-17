@@ -21,7 +21,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
           setUser(res.data.user);
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
