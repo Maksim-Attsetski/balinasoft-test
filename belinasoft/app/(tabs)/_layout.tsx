@@ -17,6 +17,7 @@ export default function TabLayout() {
           },
           default: {},
         }),
+        animation: 'shift',
       }}
     >
       <Tabs.Screen name='index' options={{ title: 'Ваши Задачи' }} />
