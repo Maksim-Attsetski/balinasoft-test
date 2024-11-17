@@ -20,16 +20,11 @@ export default function TabLayout() {
         }),
       }}
     >
+      <Tabs.Screen name='index' options={{ title: 'Ваши Задачи' }} />
       <Tabs.Screen
-        name='index'
+        name='profile'
         options={{
-          title: 'Home',
-        }}
-      />
-      <Tabs.Screen
-        name='explore'
-        options={{
-          title: 'Explore',
+          title: 'Профиль',
         }}
       />
     </Tabs>
