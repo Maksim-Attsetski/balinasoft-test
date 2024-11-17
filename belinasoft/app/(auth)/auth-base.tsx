@@ -10,13 +10,21 @@ const AuthBase = () => {
   return (
     <>
       <Gap y={50} />
-      <Text>Добро пожаловать!</Text>
+      <Text title>Добро пожаловать!</Text>
       <Gap y={24} />
       <View style={styles.btnContainer}>
-        <Button type='primary' to={'/(auth)/sign-up'}>
+        <Button
+          btnProps={{ style: { flex: 1 } }}
+          type='primary'
+          to={'/(auth)/sign-up'}
+        >
           Регистрация
         </Button>
-        <Button type='secondary' to={'/(auth)/login'}>
+        <Button
+          btnProps={{ style: { flex: 1 } }}
+          type='secondary'
+          to={'/(auth)/login'}
+        >
           Войти
         </Button>
       </View>
@@ -28,7 +36,10 @@ const styles = StyleSheet.create({
   btnContainer: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     gap: 12,
+    marginTop: 'auto',
+    marginBottom: 12,
   },
 });
 

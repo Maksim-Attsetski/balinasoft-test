@@ -37,7 +37,7 @@ const SignUp = () => {
       <Button to={'../'}>Назад</Button>
 
       <Gap y={20} />
-      <Text style={{ fontSize: 32 }}>Создай свой аккаунт</Text>
+      <Text title>Создай свой аккаунт</Text>
       <Gap y={12} />
 
       <Input
