@@ -1,27 +1,33 @@
 import React, { useEffect } from 'react';
 
 import { FlatList, ScrollView, StyleSheet } from 'react-native';
-import { Layout, Text } from '@/components';
+import { Button, Gap, Layout, Text } from '@/components';
 import { Task, useTasks } from '@/widgets';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
-  const { tasks, onGetMyTasks } = useTasks();
+  const { tasks, onGetMyTasks, isTaskLoading } = useTasks();
+  console.log('tasks', tasks);
 
   useEffect(() => {
     onGetMyTasks();
   }, []);
+
   return (
     <Layout>
-      <Text>Home</Text>
-      <Link
-        href={{
+      <Button
+        to={{
           pathname: '/(routes)/task-action',
         }}
+        full={false}
       >
         Добавить задачу
-      </Link>
-      <FlatList data={tasks} renderItem={({ item }) => <Task task={item} />} />
+      </Button>
+      <Gap />
+      <FlatList
+        refreshing={isTaskLoading}
+        data={tasks}
+        renderItem={({ item }) => <Task task={item} />}
+      />
     </Layout>
   );
 }

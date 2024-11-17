@@ -26,7 +26,7 @@ const MyButton: FC<IProps> = ({
   children,
   to,
   type = 'common',
-  full = true,
+  full = false,
 }) => {
   const styles = getStyles(type, btnProps?.disabled, full);
 

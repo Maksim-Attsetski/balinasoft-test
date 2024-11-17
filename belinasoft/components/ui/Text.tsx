@@ -5,6 +5,7 @@ import { Text, TextProps, StyleSheet } from 'react-native';
 
 interface IProps extends TextProps {
   title?: boolean;
+  center?: boolean;
 }
 
 const MyText: FC<IProps> = (props) => {
@@ -13,7 +14,11 @@ const MyText: FC<IProps> = (props) => {
     <Text
       {...props}
       style={[
-        { color: textColor, fontSize: props.title ? 32 : 20 },
+        {
+          color: textColor,
+          fontSize: props.title ? 32 : 20,
+          textAlign: props.center ? 'center' : 'left',
+        },
         props.style,
       ]}
     >

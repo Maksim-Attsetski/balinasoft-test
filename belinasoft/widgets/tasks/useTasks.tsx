@@ -16,11 +16,11 @@ export const useTasks = () => {
 
     try {
       setIsTaskLoading(true);
-      const response = await taskService.getAll<ITask>();
       const { data, error } = await taskService.getByUserId<ITask>(user?.id);
-      console.log(data, response.data);
 
       if (error) throw new Error(error?.message);
+
+      console.info('TASKS: ', data);
 
       if (data) {
         store.setTasks(data);

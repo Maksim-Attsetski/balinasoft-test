@@ -11,7 +11,7 @@ interface ITasksStore {
 
 export const useTasksStore = create<ITasksStore>((set) => ({
   tasks: [],
-  setTasks: (tasks) => ({ tasks }),
+  setTasks: (tasks) => set({ tasks }),
   createTask: (task) =>
     set((state) => ({
       tasks: [...state.tasks, task],

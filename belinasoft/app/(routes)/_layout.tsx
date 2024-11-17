@@ -15,6 +15,7 @@ const RoutesLayout = () => {
       screenLayout={(props) => <Layout children={props.children} />}
     >
       <Stack.Screen name='task-action' />
+      <Stack.Screen name='task/[id]' />
     </Stack>
   );
 };

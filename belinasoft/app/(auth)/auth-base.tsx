@@ -13,18 +13,10 @@ const AuthBase = () => {
       <Text title>Добро пожаловать!</Text>
       <Gap y={24} />
       <View style={styles.btnContainer}>
-        <Button
-          btnProps={{ style: { flex: 1 } }}
-          type='primary'
-          to={'/(auth)/sign-up'}
-        >
+        <Button full type='primary' to={'/(auth)/sign-up'}>
           Регистрация
         </Button>
-        <Button
-          btnProps={{ style: { flex: 1 } }}
-          type='secondary'
-          to={'/(auth)/login'}
-        >
+        <Button full type='secondary' to={'/(auth)/login'}>
           Войти
         </Button>
       </View>

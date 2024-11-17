@@ -12,18 +12,12 @@ export default function ProfileScreen() {
 
   return (
     <Layout>
-      <Text style={{ textAlign: 'center' }}>Тема</Text>
+      <Text style={styles.themeTitle}>Тема</Text>
       <Gap y={20} />
 
-      <View
-        style={{
-          flexDirection: 'row',
-          gap: 12,
-          width: '100%',
-          justifyContent: 'space-around',
-        }}
-      >
+      <View style={styles.rowFlex}>
         <Button
+          full
           type={isDark ? 'common' : 'primary'}
           btnProps={{
             onPress: () => onChangeTheme('light'),
@@ -32,6 +26,7 @@ export default function ProfileScreen() {
           Светлая
         </Button>
         <Button
+          full
           type={isDark ? 'primary' : 'common'}
           btnProps={{
             onPress: () => onChangeTheme('dark'),
@@ -42,6 +37,8 @@ export default function ProfileScreen() {
       </View>
 
       <Gap y={20} />
+      <View style={styles.divider} />
+      <Gap y={20} />
 
       <Text>Имя: {user?.user_metadata?.name}</Text>
       <Text>E-mail: {user?.email}</Text>
@@ -51,10 +48,9 @@ export default function ProfileScreen() {
       <Button
         type='secondary'
         btnProps={{
-          style: { marginTop: 'auto', marginBlock: 20 },
+          style: styles.logoutBtn,
           onPress: onLogout,
         }}
-        full={false}
       >
         Выйти
       </Button>
@@ -62,4 +58,22 @@ export default function ProfileScreen() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  themeTitle: { textAlign: 'center' },
+  divider: {
+    width: '70%',
+    height: 1,
+    backgroundColor: 'rgba(35,35,35,0.5)',
+    alignSelf: 'center',
+  },
+  logoutBtn: {
+    marginTop: 'auto',
+    marginBlock: 20,
+  },
+  rowFlex: {
+    flexDirection: 'row',
+    gap: 12,
+    width: '100%',
+    justifyContent: 'space-around',
+  },
+});

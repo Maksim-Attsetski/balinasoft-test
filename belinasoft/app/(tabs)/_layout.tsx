@@ -8,19 +8,8 @@ export default function TabLayout() {
   const tabBarActiveTintColor = useThemeColor('tint');
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor,
-        tabBarStyle: Platform.select({
-          ios: {
-            position: 'absolute',
-          },
-          default: {},
-        }),
-        animation: 'shift',
-      }}
-    >
-      <Tabs.Screen name='index' options={{ title: 'Ваши Задачи' }} />
+    <Tabs>
+      <Tabs.Screen name='index' options={{ title: 'Ваши задачи' }} />
       <Tabs.Screen
         name='profile'
         options={{

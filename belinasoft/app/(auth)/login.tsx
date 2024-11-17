@@ -55,10 +55,15 @@ const Login = () => {
 
       <Button
         type='primary'
-        btnProps={{ onPress: onSubmit, disabled: !isFormValid }}
+        btnProps={{
+          onPress: onSubmit,
+          disabled: !isFormValid,
+          style: { marginTop: 'auto' },
+        }}
       >
         Продолжить
       </Button>
+      <Gap />
     </>
   );
 };

@@ -3,6 +3,7 @@ export interface ITask {
   name: string;
   description: string;
   is_done: boolean;
+  is_pinned: boolean;
   created_at: string;
   user_id: string;
 }
