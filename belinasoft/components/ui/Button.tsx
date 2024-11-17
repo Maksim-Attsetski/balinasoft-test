@@ -1,14 +1,15 @@
-import { staticColors } from '@/global/Colors';
-import { useThemeColor } from '@/hooks';
 import React, { FC, memo, PropsWithChildren } from 'react';
+
 import {
   StyleSheet,
   TouchableHighlight,
   TextProps,
   TouchableHighlightProps,
 } from 'react-native';
-import Text from './Text';
 import { LinkProps, router } from 'expo-router';
+
+import { staticColors } from '@/global/Colors';
+import Text from './Text';
 
 type TBtnType = 'primary' | 'secondary' | 'common';
 type TBtnSize = 'small' | 'medium' | 'large';

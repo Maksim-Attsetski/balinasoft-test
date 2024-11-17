@@ -1,10 +1,7 @@
 import React, { memo, useMemo, useState } from 'react';
 
-import { Link } from 'expo-router';
-
 import { Button, Gap, Input, Text } from '@/components';
 import { useAuth } from '@/widgets';
-import { View } from 'react-native';
 
 const SignUp = () => {
   const { onSignup } = useAuth();

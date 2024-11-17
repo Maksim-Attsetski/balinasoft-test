@@ -1,7 +1,7 @@
-import { Colors } from '@/global/Colors';
+import React, { FC, memo } from 'react';
+import { Text, TextProps } from 'react-native';
+
 import { useThemeColor } from '@/hooks';
-import React, { FC, memo, PropsWithChildren } from 'react';
-import { Text, TextProps, StyleSheet } from 'react-native';
 
 interface IProps extends TextProps {
   title?: boolean;

@@ -1,3 +1,4 @@
+import React, { FC, memo, PropsWithChildren, useEffect } from 'react';
 import {
   DarkTheme,
   DefaultTheme,
@@ -5,12 +6,10 @@ import {
 } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { FC, memo, PropsWithChildren, useEffect } from 'react';
 import 'react-native-reanimated';
+import { StatusBar } from 'expo-status-bar';
 
 import { useColorScheme } from '@/hooks';
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
 
 SplashScreen.preventAutoHideAsync();
 

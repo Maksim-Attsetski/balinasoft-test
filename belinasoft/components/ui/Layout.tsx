@@ -1,8 +1,9 @@
-import { useThemeColor } from '@/hooks';
 import React, { FC, memo, PropsWithChildren } from 'react';
 
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+
+import { useThemeColor } from '@/hooks';
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   const bgColor = useThemeColor('background');

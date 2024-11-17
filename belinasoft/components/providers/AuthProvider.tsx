@@ -1,9 +1,11 @@
+import React, { FC, memo, PropsWithChildren, useEffect, useState } from 'react';
+
+import { router } from 'expo-router';
+import { ActivityIndicator, View } from 'react-native';
+
 import { supabase } from '@/global';
 import { useAuth } from '@/widgets';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage';
-import { Redirect, router } from 'expo-router';
-import React, { FC, memo, PropsWithChildren, useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
 const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { setUser, user } = useAuth();
@@ -44,8 +46,8 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
           }}
         >
           <ActivityIndicator
-            style={{ transform: [{ scale: 4 }] }}
-            size={'large'}
+            style={{ transform: [{ scale: 6 }] }}
+            size={'small'}
           />
         </View>
       )}

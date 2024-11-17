@@ -1,5 +1,7 @@
 import React, { FC, memo } from 'react';
+
 import { FlexStyle, View, ViewProps } from 'react-native';
+
 import Gap from './Gap';
 
 interface IProps extends ViewProps {

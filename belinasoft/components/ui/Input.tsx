@@ -8,6 +8,7 @@ import {
   View,
   ViewProps,
 } from 'react-native';
+
 import { staticColors } from '@/global/Colors';
 import { useThemeColor } from '@/hooks';
 import Text from './Text';

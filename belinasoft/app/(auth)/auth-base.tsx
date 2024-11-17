@@ -1,10 +1,8 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 
-import { Link } from 'expo-router';
-import React from 'react';
+import { StyleSheet } from 'react-native';
 
-import { Button, Flex, Gap, Layout, Text } from '@/components';
-import { StyleSheet, View } from 'react-native';
+import { Button, Flex, Gap, Text } from '@/components';
 
 const AuthBase = () => {
   return (
@@ -12,7 +10,7 @@ const AuthBase = () => {
       <Gap y={50} />
       <Text title>Добро пожаловать!</Text>
       <Gap y={24} />
-      <Flex style={styles.btnContainer}>
+      <Flex toDown>
         <Button full type='primary' to={'/(auth)/sign-up'}>
           Регистрация
         </Button>
@@ -23,13 +21,5 @@ const AuthBase = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  btnContainer: {
-    justifyContent: 'space-between',
-    marginTop: 'auto',
-    marginBottom: 12,
-  },
-});
 
 export default memo(AuthBase);
