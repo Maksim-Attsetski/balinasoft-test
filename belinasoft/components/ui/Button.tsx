@@ -26,8 +26,8 @@ const MyButton: FC<IProps> = ({
   to,
   type = 'common',
 }) => {
-  const textColor = useThemeColor('text');
-  const styles = getStyles(type);
+  const styles = getStyles(type, btnProps?.disabled);
+
   return (
     <TouchableHighlight
       {...btnProps}
@@ -45,13 +45,12 @@ const MyButton: FC<IProps> = ({
   );
 };
 
-const getStyles = (type: BtnType) =>
+const getStyles = (type: BtnType, disabled?: boolean) =>
   StyleSheet.create({
     btn: {
-      backgroundColor: staticColors[type].bg,
+      backgroundColor: staticColors[type][disabled ? 'opacity' : 'bg'],
       paddingVertical: 16,
       paddingHorizontal: 24,
-      flex: 1,
       borderRadius: 12,
     },
     text: {

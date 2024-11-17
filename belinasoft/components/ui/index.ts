@@ -1,6 +1,7 @@
 import Button from './Button';
 import Gap from './Gap';
+import Input from './Input';
 import Layout from './Layout';
 import Text from './Text';
 
-export { Button, Layout, Text, Gap };
+export { Input, Button, Layout, Text, Gap };

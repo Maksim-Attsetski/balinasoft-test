@@ -4,6 +4,7 @@ const tintColorDark = '#fff';
 export const Colors = {
   light: {
     text: '#1D1D1F',
+    secondaryText: '#9E9E9E',
     background: '#fff',
     tint: tintColorLight,
     icon: '#687076',
@@ -12,6 +13,7 @@ export const Colors = {
   },
   dark: {
     text: '#ECEDEE',
+    secondaryText: '#ECEDEE',
     background: '#151718',
     tint: tintColorDark,
     icon: '#9BA1A6',
@@ -33,7 +35,7 @@ export const staticColors = {
   },
   common: {
     bg: 'rgb(245, 245, 247)', // #F5F5F7
-    opacity: 'rgba(0, 204, 46, 0.5)', // #F5F5F7
+    opacity: 'rgba(245, 245, 247, 0.5)', // #F5F5F7
     color: '#00CC2D',
   },
 };
