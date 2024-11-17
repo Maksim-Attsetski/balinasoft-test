@@ -26,7 +26,6 @@ export default function ProfileScreen() {
         <Button
           type={isDark ? 'common' : 'primary'}
           btnProps={{
-            style: { flex: 1 },
             onPress: () => onChangeTheme('light'),
           }}
         >
@@ -35,7 +34,6 @@ export default function ProfileScreen() {
         <Button
           type={isDark ? 'primary' : 'common'}
           btnProps={{
-            style: { flex: 1 },
             onPress: () => onChangeTheme('dark'),
           }}
         >
@@ -56,6 +54,7 @@ export default function ProfileScreen() {
           style: { marginTop: 'auto', marginBlock: 20 },
           onPress: onLogout,
         }}
+        full={false}
       >
         Выйти
       </Button>

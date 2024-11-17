@@ -34,8 +34,14 @@ export const useTasks = () => {
 
   const onCreateTask = async (newTask: ITask) => {
     try {
+      if (!user?.id) return;
+
       setIsTaskLoading(true);
-      const { data, error } = await taskService.create<ITask>(newTask);
+      const { data, error } = await taskService.create<ITask>({
+        ...newTask,
+        user_id: user?.id,
+        is_done: false,
+      });
 
       if (error) throw new Error(error?.message);
 

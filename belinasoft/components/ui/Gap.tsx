@@ -5,7 +5,7 @@ interface IProps {
   y?: number;
 }
 
-const Gap: FC<IProps> = ({ y = 8 }) => {
+const Gap: FC<IProps> = ({ y = 12 }) => {
   return <View style={{ height: y }} />;
 };
 

@@ -17,6 +17,7 @@ interface IProps extends PropsWithChildren {
   btnProps?: TouchableHighlightProps;
   textProps?: TextProps;
   type?: BtnType;
+  full?: boolean;
 }
 
 const MyButton: FC<IProps> = ({
@@ -25,8 +26,9 @@ const MyButton: FC<IProps> = ({
   children,
   to,
   type = 'common',
+  full = true,
 }) => {
-  const styles = getStyles(type, btnProps?.disabled);
+  const styles = getStyles(type, btnProps?.disabled, full);
 
   return (
     <TouchableHighlight
@@ -38,20 +40,21 @@ const MyButton: FC<IProps> = ({
       }}
       style={[btnProps?.style, styles.btn]}
     >
-      <Text {...textProps} style={[textProps?.style, styles.text]}>
+      <Text {...textProps} style={[styles.text, textProps?.style]}>
         {children}
       </Text>
     </TouchableHighlight>
   );
 };
 
-const getStyles = (type: BtnType, disabled?: boolean) =>
+const getStyles = (type: BtnType, disabled?: boolean, full?: boolean) =>
   StyleSheet.create({
     btn: {
       backgroundColor: staticColors[type][disabled ? 'opacity' : 'bg'],
       paddingVertical: 16,
       paddingHorizontal: 24,
       borderRadius: 12,
+      flex: full ? 1 : 0,
     },
     text: {
       textAlign: 'center',
