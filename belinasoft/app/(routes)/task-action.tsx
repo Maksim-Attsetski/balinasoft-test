@@ -1,10 +1,9 @@
 import { memo, useMemo, useState } from 'react';
 
-import { Link, router, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 
-import { Button, Gap, Input, Text } from '@/components';
-import { StyleSheet, View } from 'react-native';
+import { Button, Flex, Gap, Input, Text } from '@/components';
 import { ITask, useTasks } from '@/widgets';
 
 const TaskAction = () => {
@@ -58,33 +57,16 @@ const TaskAction = () => {
         }}
       />
 
-      <View
-        style={{
-          marginTop: 'auto',
-          marginBottom: 12,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          gap: 12,
-        }}
-      >
-        <Button to={'../'}>Отменить</Button>
-        <Button type='primary' btnProps={{ onPress }}>
+      <Flex justify='center' toDown>
+        <Button full to={'../'}>
+          Отменить
+        </Button>
+        <Button full type='primary' btnProps={{ onPress }}>
           Сохранить
         </Button>
-      </View>
+      </Flex>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  btnContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
-    marginTop: 'auto',
-    marginBottom: 12,
-  },
-});
 
 export default memo(TaskAction);

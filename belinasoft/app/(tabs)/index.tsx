@@ -1,7 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 
-import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Gap, Layout, Text } from '@/components';
+import { FlatList, View } from 'react-native';
+import { Button, Flex, Gap, Layout, Text } from '@/components';
 import { ITask, Task, TaskFilterModal, useTasks } from '@/widgets';
 import BottomSheet from '@gorhom/bottom-sheet';
 
@@ -33,7 +33,7 @@ export default function HomeScreen() {
 
   return (
     <Layout>
-      <View style={{ flexDirection: 'row', gap: 12 }}>
+      <Flex>
         <Button
           to={{
             pathname: '/(routes)/task-action',
@@ -55,7 +55,7 @@ export default function HomeScreen() {
         >
           Показать фильтры
         </Button>
-      </View>
+      </Flex>
       <Gap />
       <FlatList
         refreshing={isTaskLoading}
@@ -78,5 +78,3 @@ export default function HomeScreen() {
     </Layout>
   );
 }
-
-const styles = StyleSheet.create({});

@@ -1,9 +1,9 @@
 import { memo, useRef, useState } from 'react';
 
-import { Link, router, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 
-import { Button, Gap, Input, Text } from '@/components';
+import { Button, Flex, Gap, Text } from '@/components';
 import { StyleSheet, View } from 'react-native';
 import { ITask, useTasks } from '@/widgets';
 import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
@@ -67,7 +67,7 @@ const TaskAction = () => {
         {new Date(task?.created_at).toLocaleDateString('ru')}
       </Text>
       <Gap />
-      <View style={styles.btnContainer}>
+      <Flex toDown>
         <Button
           btnProps={{ onPress: onPressPinTask }}
           full
@@ -82,7 +82,10 @@ const TaskAction = () => {
         >
           ✔️
         </Button>
-        <Button full btnProps={{ onPress: onPressEditTask }}>
+        <Button
+          full
+          btnProps={{ onPress: onPressEditTask, disabled: task.is_done }}
+        >
           ✏️
         </Button>
         <Button
@@ -91,7 +94,7 @@ const TaskAction = () => {
         >
           🗑️
         </Button>
-      </View>
+      </Flex>
       <BottomSheet
         enablePanDownToClose
         enableDynamicSizing
@@ -118,14 +121,6 @@ const TaskAction = () => {
 };
 
 const styles = StyleSheet.create({
-  btnContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
-    marginTop: 'auto',
-    marginBottom: 12,
-  },
   description: {
     color: Colors.light.secondaryText,
     fontSize: 16,

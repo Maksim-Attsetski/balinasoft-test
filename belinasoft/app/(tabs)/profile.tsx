@@ -2,7 +2,7 @@ import React from 'react';
 
 import { StyleSheet, View } from 'react-native';
 
-import { Button, Gap, Layout, Text } from '@/components';
+import { Button, Flex, Gap, Layout, Text } from '@/components';
 import { useAuth } from '@/widgets';
 import { useTheme } from '@/hooks';
 
@@ -15,18 +15,20 @@ export default function ProfileScreen() {
       <Text style={styles.themeTitle}>Тема</Text>
       <Gap y={20} />
 
-      <View style={styles.rowFlex}>
+      <Flex>
         <Button
           full
           type={isDark ? 'common' : 'primary'}
           btnProps={{
             onPress: () => onChangeTheme('light'),
           }}
+          size='small'
         >
           Светлая
         </Button>
         <Button
           full
+          size='small'
           type={isDark ? 'primary' : 'common'}
           btnProps={{
             onPress: () => onChangeTheme('dark'),
@@ -34,7 +36,7 @@ export default function ProfileScreen() {
         >
           Тёмная
         </Button>
-      </View>
+      </Flex>
 
       <Gap y={20} />
       <View style={styles.divider} />
@@ -45,15 +47,11 @@ export default function ProfileScreen() {
 
       <Gap y={20} />
 
-      <Button
-        type='secondary'
-        btnProps={{
-          style: styles.logoutBtn,
-          onPress: onLogout,
-        }}
-      >
-        Выйти
-      </Button>
+      <Flex toDown>
+        <Button type='secondary' btnProps={{ onPress: onLogout }}>
+          Выйти
+        </Button>
+      </Flex>
     </Layout>
   );
 }
@@ -65,15 +63,5 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: 'rgba(35,35,35,0.5)',
     alignSelf: 'center',
-  },
-  logoutBtn: {
-    marginTop: 'auto',
-    marginBlock: 20,
-  },
-  rowFlex: {
-    flexDirection: 'row',
-    gap: 12,
-    width: '100%',
-    justifyContent: 'space-around',
   },
 });
