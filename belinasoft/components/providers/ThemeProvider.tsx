@@ -8,7 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { FC, memo, PropsWithChildren, useEffect } from 'react';
 import 'react-native-reanimated';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from '@/hooks';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 
