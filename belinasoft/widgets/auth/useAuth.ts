@@ -12,10 +12,14 @@ export const useAuth = () => {
 
   const onLogin = async (credentials: SignInWithPasswordCredentials) => {
     try {
-      const user = await supabase.auth.signInWithPassword(credentials);
-      setUser(user.data.user);
+      const { data, error } = await supabase.auth.signInWithPassword(
+        credentials
+      );
+
+      if (error) throw new Error(error?.message);
+      setUser(data.user);
     } catch (error: any) {
-      Alert.alert(error?.message ?? 'Ошибка' + JSON.stringify(error));
+      Alert.alert(error ?? 'Ошибка' + JSON.stringify(error));
       console.error(error);
     }
   };

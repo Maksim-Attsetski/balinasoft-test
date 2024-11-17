@@ -1,16 +1,66 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 
-import { Layout } from '@/components';
 import { Link } from 'expo-router';
-import { Text } from 'react-native';
 
-const LogIn = () => {
+import { Button, Gap, Input, Text } from '@/components';
+import { useAuth } from '@/widgets';
+import { View } from 'react-native';
+
+const Login = () => {
+  const { onLogin } = useAuth();
+
+  const [email, setEmail] = useState<string>('');
+  const [pass, setPass] = useState<string>('');
+
+  const isFormValid = useMemo(() => {
+    return (
+      // other errors checking in supabase
+      (email.length > 0 && email.length <= 50) ||
+      (pass.length > 6 && pass.length <= 20)
+    );
+  }, [email, pass]);
+
+  const onSubmit = async () => {
+    if (isFormValid) {
+      await onLogin({ email, password: pass });
+    }
+  };
+
   return (
     <>
-      <Text>Log in auth sceen</Text>
-      <Link href={'../'}>Back</Link>
+      <Button to={'../'}>Назад</Button>
+
+      <Gap y={20} />
+      <Text style={{ fontSize: 32 }}>Войди в свой аккаунт</Text>
+      <Gap y={12} />
+
+      <Input
+        title='E-mail'
+        inputProps={{
+          keyboardType: 'email-address',
+          onChangeText: setEmail,
+          value: email,
+        }}
+      />
+      <Input
+        title='Пароль'
+        inputProps={{
+          keyboardType: 'visible-password',
+          onChangeText: setPass,
+          value: pass,
+        }}
+      />
+
+      <Gap y={12} />
+
+      <Button
+        type='primary'
+        btnProps={{ onPress: onSubmit, disabled: !isFormValid }}
+      >
+        Продолжить
+      </Button>
     </>
   );
 };
 
-export default memo(LogIn);
+export default memo(Login);

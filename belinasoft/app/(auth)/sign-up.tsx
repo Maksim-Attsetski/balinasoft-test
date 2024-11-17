@@ -21,7 +21,6 @@ const SignUp = () => {
       (pass.length > 6 && pass.length <= 20)
     );
   }, [name, email, pass]);
-  console.log(isFormValid, name, email, pass);
 
   const onSubmit = async () => {
     if (isFormValid) {
