@@ -1,18 +1,35 @@
-import { Layout } from '@/components';
+import { memo } from 'react';
+
 import { Link } from 'expo-router';
 import React from 'react';
 
-import { memo } from 'react';
-import { Text, View } from 'react-native';
+import { Button, Gap, Layout, Text } from '@/components';
+import { StyleSheet, View } from 'react-native';
 
 const AuthBase = () => {
   return (
-    <Layout>
-      <Text>Base auth sceen</Text>
-      <Link href={'/(auth)/sign-up'}>Sign up</Link>
-      <Link href={'/(auth)/login'}>Log in</Link>
-    </Layout>
+    <>
+      <Gap y={50} />
+      <Text>Добро пожаловать!</Text>
+      <Gap y={24} />
+      <View style={styles.btnContainer}>
+        <Button type='primary' to={'/(auth)/sign-up'}>
+          Регистрация
+        </Button>
+        <Button type='secondary' to={'/(auth)/login'}>
+          Войти
+        </Button>
+      </View>
+    </>
   );
 };
+
+const styles = StyleSheet.create({
+  btnContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 12,
+  },
+});
 
 export default memo(AuthBase);
