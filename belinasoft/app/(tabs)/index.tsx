@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { FlatList, ScrollView, StyleSheet } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Gap, Layout, Text } from '@/components';
 import { Task, useTasks } from '@/widgets';
 
 export default function HomeScreen() {
   const { tasks, onGetMyTasks, isTaskLoading } = useTasks();
-  console.log('tasks', tasks);
 
   useEffect(() => {
     onGetMyTasks();
@@ -25,9 +24,17 @@ export default function HomeScreen() {
       <Gap />
       <FlatList
         refreshing={isTaskLoading}
+        onRefresh={onGetMyTasks}
         data={tasks}
         renderItem={({ item }) => <Task task={item} />}
+        ListEmptyComponent={() => (
+          <View>
+            <Text>У вас еще нет задач</Text>
+          </View>
+        )}
+        ItemSeparatorComponent={Gap}
       />
+      <Gap />
     </Layout>
   );
 }

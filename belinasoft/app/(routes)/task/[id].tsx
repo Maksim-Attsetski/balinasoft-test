@@ -16,12 +16,15 @@ const TaskAction = () => {
   const { onUpdateTask, onDeleteTask, isTaskLoading } = useTasks();
 
   const [task, setTask] = useState<ITask | null>(
-    JSON.parse(item?.task as string) ?? null
+    JSON.parse((item?.task ?? '') as string) ?? null
   );
 
   const onPressPinTask = async () => {
     if (task) {
       await onUpdateTask({ is_pinned: !task?.is_pinned } as ITask, task?.id);
+      setTask((prev) =>
+        prev ? { ...prev, is_pinned: !prev.is_pinned } : null
+      );
     }
   };
 
@@ -31,12 +34,7 @@ const TaskAction = () => {
       params: { task: JSON.stringify(task) },
     });
   };
-  const onPressDeleteTask = async () => {
-    router.push({
-      pathname: '/(routes)/task-action',
-      params: { task: JSON.stringify(task) },
-    });
-  };
+
   const onConfirmDeleteTask = async () => {
     if (!task?.id) return;
 
@@ -48,7 +46,7 @@ const TaskAction = () => {
   return task ? (
     <>
       <Gap />
-      <Button to={'../'}>Назад</Button>
+      <Button to={'/(tabs)'}>Назад</Button>
       <Gap />
       <Text title center>
         {task?.name}
@@ -67,7 +65,7 @@ const TaskAction = () => {
         <Button
           btnProps={{ onPress: onPressPinTask }}
           full
-          type={task.is_pinned ? 'secondary' : 'common'}
+          type={task.is_pinned ? 'primary' : 'common'}
         >
           📌
         </Button>

@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 
 import { Link, router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
@@ -10,25 +10,37 @@ import { ITask, useTasks } from '@/widgets';
 const TaskAction = () => {
   const item = useLocalSearchParams();
 
-  const [name, setName] = useState<string>((item?.name as string) ?? '');
-  const [description, setDescription] = useState<string>(
-    (item?.description as string) ?? ''
+  const task = useMemo(
+    () => (item?.task ? JSON.parse((item?.task ?? '') as string) : null),
+    [item]
   );
-  const { onCreateTask } = useTasks();
+
+  const [name, setName] = useState<string>(task?.name ?? '');
+  const [description, setDescription] = useState<string>(
+    task?.description ?? ''
+  );
+  const { onCreateTask, onUpdateTask } = useTasks();
 
   const onPress = async () => {
-    await onCreateTask({
-      description,
-      name,
-    } as ITask);
-
-    router.canGoBack() ? router.back() : router.replace('/');
+    if (task) {
+      await onUpdateTask({ description, name } as ITask, task.id);
+      router.replace({
+        pathname: '/(routes)/task/[id]',
+        params: { task: JSON.stringify({ ...task, description, name }) },
+      });
+    } else {
+      await onCreateTask({
+        description,
+        name,
+      } as ITask);
+      router.canGoBack() ? router.back() : router.replace('/');
+    }
   };
 
   return (
     <>
       <Gap />
-      <Text title>Добавление задачи</Text>
+      <Text title>{task ? 'Редактирование' : 'Добавление'} задачи</Text>
       <Gap y={24} />
 
       <Input
@@ -38,7 +50,12 @@ const TaskAction = () => {
       <Gap />
       <Input
         title='Описание'
-        inputProps={{ value: description, onChangeText: setDescription }}
+        inputProps={{
+          value: description,
+          onChangeText: setDescription,
+          multiline: true,
+          numberOfLines: 7,
+        }}
       />
 
       <View
