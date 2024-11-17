@@ -11,10 +11,21 @@ import { useTasks } from '../useTasks';
 
 interface IProps {
   task: ITask | null;
+  withEdit?: boolean;
+  withPin?: boolean;
+  withDone?: boolean;
+  withDelete?: boolean;
   setTask: Dispatch<SetStateAction<ITask | null>>;
 }
 
-const ActionTaskBtns: FC<IProps> = ({ setTask, task }) => {
+const ActionTaskBtns: FC<IProps> = ({
+  setTask,
+  task,
+  withDelete = true,
+  withDone = true,
+  withEdit = true,
+  withPin = true,
+}) => {
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const { onUpdateTask, onDeleteTask } = useTasks();
@@ -52,32 +63,44 @@ const ActionTaskBtns: FC<IProps> = ({ setTask, task }) => {
   return (
     <>
       <Flex toDown>
-        <Button
-          btnProps={{ onPress: onPressPinTask }}
-          full
-          type={task?.is_pinned ? 'primary' : 'common'}
-        >
-          📌
-        </Button>
-        <Button
-          btnProps={{ onPress: onPressDoneTask }}
-          full
-          type={task?.is_done ? 'primary' : 'common'}
-        >
-          ✔️
-        </Button>
-        <Button
-          full
-          btnProps={{ onPress: onPressEditTask, disabled: task?.is_done }}
-        >
-          ✏️
-        </Button>
-        <Button
-          full
-          btnProps={{ onPress: () => bottomSheetRef.current?.snapToIndex(0) }}
-        >
-          🗑️
-        </Button>
+        {withPin && (
+          <Button
+            btnProps={{ onPress: onPressPinTask }}
+            full
+            size='small'
+            type={task?.is_pinned ? 'primary' : 'common'}
+          >
+            📌
+          </Button>
+        )}
+        {withDone && (
+          <Button
+            btnProps={{ onPress: onPressDoneTask }}
+            full
+            size='small'
+            type={task?.is_done ? 'primary' : 'common'}
+          >
+            ✔️
+          </Button>
+        )}
+        {withEdit && (
+          <Button
+            full
+            size='small'
+            btnProps={{ onPress: onPressEditTask, disabled: task?.is_done }}
+          >
+            ✏️
+          </Button>
+        )}
+        {withDelete && (
+          <Button
+            full
+            size='small'
+            btnProps={{ onPress: () => bottomSheetRef.current?.snapToIndex(0) }}
+          >
+            🗑️
+          </Button>
+        )}
       </Flex>
       <BottomSheet
         enablePanDownToClose

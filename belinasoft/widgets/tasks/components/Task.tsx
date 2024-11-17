@@ -1,17 +1,12 @@
 import React, { FC, memo } from 'react';
 
-import {
-  View,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { router } from 'expo-router';
 
 import { Gap, Text } from '@/components';
 import { ITask } from '../types';
-import { useThemeColor } from '@/hooks';
 import { Colors, staticColors } from '@/global';
-import { router } from 'expo-router';
+import ActionTaskBtns from './ActionTaskBtns';
 
 interface IProps {
   task: ITask;
@@ -45,6 +40,7 @@ const Task: FC<IProps> = ({ task }) => {
         <Text style={styles.date}>
           {new Date(task.created_at).toLocaleDateString()}
         </Text>
+        <ActionTaskBtns withEdit={false} task={task} setTask={() => {}} />
       </>
     </TouchableOpacity>
   );
