@@ -27,6 +27,12 @@ const TaskAction = () => {
       );
     }
   };
+  const onPressDoneTask = async () => {
+    if (task) {
+      await onUpdateTask({ is_done: !task?.is_done } as ITask, task?.id);
+      setTask((prev) => (prev ? { ...prev, is_done: !prev.is_done } : null));
+    }
+  };
 
   const onPressEditTask = async () => {
     router.push({
@@ -68,6 +74,13 @@ const TaskAction = () => {
           type={task.is_pinned ? 'primary' : 'common'}
         >
           📌
+        </Button>
+        <Button
+          btnProps={{ onPress: onPressDoneTask }}
+          full
+          type={task.is_done ? 'primary' : 'common'}
+        >
+          ✔️
         </Button>
         <Button full btnProps={{ onPress: onPressEditTask }}>
           ✏️

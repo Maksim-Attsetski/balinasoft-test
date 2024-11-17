@@ -10,14 +10,16 @@ import {
 import Text from './Text';
 import { LinkProps, router } from 'expo-router';
 
-type BtnType = 'primary' | 'secondary' | 'common';
+type TBtnType = 'primary' | 'secondary' | 'common';
+type TBtnSize = 'small' | 'medium' | 'large';
 
 interface IProps extends PropsWithChildren {
   to?: LinkProps['href'];
   btnProps?: TouchableHighlightProps;
   textProps?: TextProps;
-  type?: BtnType;
+  type?: TBtnType;
   full?: boolean;
+  size?: TBtnSize;
 }
 
 const MyButton: FC<IProps> = ({
@@ -27,8 +29,9 @@ const MyButton: FC<IProps> = ({
   to,
   type = 'common',
   full = false,
+  size = 'medium',
 }) => {
-  const styles = getStyles(type, btnProps?.disabled, full);
+  const styles = getStyles(type, btnProps?.disabled, full, size);
 
   return (
     <TouchableHighlight
@@ -47,18 +50,24 @@ const MyButton: FC<IProps> = ({
   );
 };
 
-const getStyles = (type: BtnType, disabled?: boolean, full?: boolean) =>
+const getStyles = (
+  type: TBtnType,
+  disabled?: boolean,
+  full?: boolean,
+  size?: TBtnSize
+) =>
   StyleSheet.create({
     btn: {
       backgroundColor: staticColors[type][disabled ? 'opacity' : 'bg'],
-      paddingVertical: 16,
-      paddingHorizontal: 24,
+      paddingVertical: size === 'medium' ? 16 : size === 'small' ? 12 : 20,
+      paddingHorizontal: size === 'medium' ? 24 : size === 'small' ? 16 : 24,
       borderRadius: 12,
       flex: full ? 1 : 0,
     },
     text: {
       textAlign: 'center',
       color: staticColors[type].color,
+      fontSize: size === 'medium' ? 20 : size === 'small' ? 16 : 24,
     },
   });
 

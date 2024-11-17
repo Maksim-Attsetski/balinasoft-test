@@ -29,7 +29,12 @@ const Task: FC<IProps> = ({ task }) => {
       style={[{ backgroundColor: staticColors.common.bg }, styles.container]}
     >
       <>
-        <Text style={styles.title}>{task.name}</Text>
+        <Text style={styles.title}>
+          {task.name}
+          {'  '}
+          {task?.is_pinned ? '📌' : ''}
+          {task?.is_done ? '✔️' : ''}
+        </Text>
         <Gap />
         {task?.description?.length > 0 && (
           <>

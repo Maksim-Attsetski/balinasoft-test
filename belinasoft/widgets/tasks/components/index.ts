@@ -1,3 +1,4 @@
 import Task from './Task';
+import TaskFilterModal from './TaskFilterModal';
 
-export { Task };
+export { Task, TaskFilterModal };
