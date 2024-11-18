@@ -7,12 +7,14 @@ import { Gap, Text } from '@/components';
 import { ITask } from '../types';
 import { Colors, staticColors } from '@/global';
 import ActionTaskBtns from './ActionTaskBtns';
+import { useThemeColor } from '@/hooks';
 
 interface IProps {
   task: ITask;
 }
 
 const Task: FC<IProps> = ({ task }) => {
+  const bg = useThemeColor('cardBg');
   return (
     <TouchableOpacity
       onPress={() =>
@@ -21,7 +23,7 @@ const Task: FC<IProps> = ({ task }) => {
           params: { task: JSON.stringify(task) },
         })
       }
-      style={[{ backgroundColor: staticColors.common.bg }, styles.container]}
+      style={[{ backgroundColor: bg }, styles.container]}
     >
       <>
         <Text style={styles.title}>
@@ -40,6 +42,7 @@ const Task: FC<IProps> = ({ task }) => {
         <Text style={styles.date}>
           {new Date(task.created_at).toLocaleDateString()}
         </Text>
+        <Gap />
         <ActionTaskBtns withEdit={false} task={task} setTask={() => {}} />
       </>
     </TouchableOpacity>

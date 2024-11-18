@@ -6,6 +6,7 @@ import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 
 import { Button, Flex, Gap, Text } from '@/components';
 import { ITask } from '../types';
+import { useThemeColor } from '@/hooks';
 
 interface IProps {
   bottomSheetRef: RefObject<BottomSheetMethods>;
@@ -14,6 +15,9 @@ interface IProps {
 }
 
 const TaskFilterModal: FC<IProps> = ({ bottomSheetRef, setSortBy, sortBy }) => {
+  const backgroundColor = useThemeColor('cardBg');
+  const indicatorColor = useThemeColor('text');
+
   const onPressSortBy = (newSortBy: keyof ITask) => {
     if (newSortBy === sortBy) return;
 
@@ -52,8 +56,10 @@ const TaskFilterModal: FC<IProps> = ({ bottomSheetRef, setSortBy, sortBy }) => {
         ref={bottomSheetRef}
         index={-1}
         containerStyle={{ zIndex: 9999 }}
+        backgroundStyle={{ backgroundColor }}
+        handleIndicatorStyle={{ backgroundColor: indicatorColor }}
       >
-        <BottomSheetView style={styles.contentContainer}>
+        <BottomSheetView style={[{ backgroundColor }, styles.contentContainer]}>
           <Gap />
           <Text style={styles.sortText}>Сортировать по</Text>
           <Gap />
@@ -91,7 +97,6 @@ const styles = StyleSheet.create({
     padding: 12,
     justifyContent: 'center',
     alignItems: 'stretch',
-    backgroundColor: '#FFF',
   },
 });
 

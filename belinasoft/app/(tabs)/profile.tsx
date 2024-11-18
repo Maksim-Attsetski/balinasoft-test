@@ -48,7 +48,7 @@ export default function ProfileScreen() {
       <Gap y={20} />
 
       <Flex toDown>
-        <Button type='secondary' btnProps={{ onPress: onLogout }}>
+        <Button full type='secondary' btnProps={{ onPress: onLogout }}>
           Выйти
         </Button>
       </Flex>

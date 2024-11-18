@@ -16,7 +16,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 8,
+    paddingHorizontal: 16,
     flex: 1,
   },
 });
