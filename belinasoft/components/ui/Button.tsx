@@ -42,7 +42,7 @@ const MyButton: FC<IProps> = ({
         btnProps?.onPress?.(event);
         to && router.push(to);
       }}
-      style={[btnProps?.style, styles.btn]}
+      style={[styles.btn, btnProps?.style]}
     >
       <Text {...textProps} style={[styles.text, textProps?.style]}>
         {children}
@@ -61,7 +61,7 @@ const getStyles = (
     btn: {
       backgroundColor: staticColors[type][disabled ? 'opacity' : 'bg'],
       paddingVertical: size === 'medium' ? 16 : size === 'small' ? 12 : 20,
-      paddingHorizontal: size === 'medium' ? 24 : size === 'small' ? 16 : 24,
+      paddingHorizontal: size === 'medium' ? 24 : size === 'small' ? 14 : 24,
       borderRadius: 12,
       flex: full ? 1 : 0,
     },

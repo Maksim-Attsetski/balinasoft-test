@@ -12,9 +12,17 @@ interface IProps {
   bottomSheetRef: RefObject<BottomSheetMethods>;
   sortBy: keyof ITask;
   setSortBy: Dispatch<SetStateAction<keyof ITask>>;
+  showOnly: keyof ITask;
+  setShowOnly: Dispatch<SetStateAction<keyof ITask>>;
 }
 
-const TaskFilterModal: FC<IProps> = ({ bottomSheetRef, setSortBy, sortBy }) => {
+const TaskFilterModal: FC<IProps> = ({
+  bottomSheetRef,
+  setSortBy,
+  sortBy,
+  setShowOnly,
+  showOnly,
+}) => {
   const backgroundColor = useThemeColor('cardBg');
   const indicatorColor = useThemeColor('text');
 
@@ -22,7 +30,12 @@ const TaskFilterModal: FC<IProps> = ({ bottomSheetRef, setSortBy, sortBy }) => {
     if (newSortBy === sortBy) return;
 
     setSortBy(newSortBy);
-    bottomSheetRef.current?.close();
+  };
+
+  const onPressShowOnly = (newShowOnly: keyof ITask) => {
+    if (newShowOnly === showOnly) return;
+
+    setShowOnly(newShowOnly);
   };
 
   return (
@@ -82,6 +95,44 @@ const TaskFilterModal: FC<IProps> = ({ bottomSheetRef, setSortBy, sortBy }) => {
             </Button>
           </Flex>
           <Gap />
+          <Text style={styles.sortText}>Показывать только</Text>
+          <Gap />
+          <Flex gap={0}>
+            <Button
+              btnProps={{
+                onPress: () => onPressShowOnly('id'),
+                style: styles.leftBtn,
+              }}
+              type={showOnly === 'id' ? 'primary' : 'common'}
+              full
+              size='small'
+            >
+              Все
+            </Button>
+            <Button
+              btnProps={{
+                onPress: () => onPressShowOnly('is_done'),
+                style: styles.centerBtn,
+              }}
+              type={showOnly === 'is_done' ? 'primary' : 'common'}
+              full
+              size='small'
+            >
+              Сделанные
+            </Button>
+            <Button
+              btnProps={{
+                onPress: () => onPressShowOnly('is_pinned'),
+                style: styles.rightBtn,
+              }}
+              type={showOnly === 'is_pinned' ? 'primary' : 'common'}
+              size='small'
+              full
+            >
+              Закрепленыне
+            </Button>
+          </Flex>
+          <Gap />
         </BottomSheetView>
       </BottomSheet>
     </>
@@ -97,6 +148,19 @@ const styles = StyleSheet.create({
     padding: 12,
     justifyContent: 'center',
     alignItems: 'stretch',
+  },
+  leftBtn: {
+    paddingHorizontal: 0,
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  centerBtn: {
+    paddingHorizontal: 8,
+    borderRadius: 0,
+  },
+  rightBtn: {
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
   },
 });
 

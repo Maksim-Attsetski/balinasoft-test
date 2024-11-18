@@ -9,6 +9,7 @@ export default function HomeScreen() {
   const { tasks, onGetMyTasks, isTaskLoading } = useTasks();
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [sortBy, setSortBy] = useState<keyof ITask>('created_at');
+  const [showOnly, setShowOnly] = useState<keyof ITask>('id');
 
   const sortTaskBy = (a: ITask, b: ITask): number => {
     switch (sortBy) {
@@ -25,11 +26,13 @@ export default function HomeScreen() {
   };
 
   const sortedTasks = useMemo(() => {
-    return [...tasks].sort((a, b) =>
-      // 1. pin -> latest. done -> sort by
-      a.is_pinned ? -1 : a.is_done ? 1 : sortTaskBy(a, b)
-    );
-  }, [tasks, sortBy]);
+    return [...tasks]
+      .filter((task) => !!task[showOnly])
+      .sort((a, b) =>
+        // 1. pin -> latest. done -> sort by
+        a.is_pinned ? -1 : a.is_done ? 1 : sortTaskBy(a, b)
+      );
+  }, [tasks, sortBy, showOnly]);
 
   useEffect(() => {
     onGetMyTasks();
@@ -41,16 +44,19 @@ export default function HomeScreen() {
         sortBy={sortBy}
         setSortBy={setSortBy}
         bottomSheetRef={bottomSheetRef}
+        showOnly={showOnly}
+        setShowOnly={setShowOnly}
       />
       <Gap />
       <FlatList
         refreshing={isTaskLoading}
-        onRefresh={onGetMyTasks}
         data={sortedTasks}
         renderItem={({ item }) => <Task task={item} />}
         ListEmptyComponent={() => (
           <View>
-            <Text>У вас еще нет задач</Text>
+            <Text>Упс...</Text>
+            <Text>Тут пока что пусто</Text>
+            <Text>Вы можете добавить задачу по кнопке выше</Text>
           </View>
         )}
         ItemSeparatorComponent={Gap}
